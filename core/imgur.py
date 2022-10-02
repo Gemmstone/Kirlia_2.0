@@ -6,10 +6,11 @@ from os import remove, path, makedirs
 from shutil import move
 import cv2
 from cv2 import dnn_superres
+from constants import IMGUR_TOKEN, DEEPAI_KEY
 
 
-client_id = "aeef3ead2dc56ac"
-client_secret = "78f9763e2bf60889920fd87dc7d6e0e51e8e9a6f"
+client_id = IMGUR_TOKEN["client_id"]
+client_secret = IMGUR_TOKEN["client_secret"]
 
 
 def fsr_x2(file, replace=True, times=2):
@@ -45,7 +46,7 @@ def image_resize(files, online=False):
                 files={
                     'image': open(file, 'rb'),
                 },
-                headers={'api-key': 'ce7d8fc1-8aa1-4986-9e24-9534cd6412b0'}
+                headers={'api-key': DEEPAI_KEY}
             )
             url = r.json()
             if "output_url" in url:

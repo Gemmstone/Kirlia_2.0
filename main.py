@@ -2,9 +2,10 @@ import interactions
 from core.ai_image_generator import ai_image
 from core.imgur import image_upload, delete_file, image_resize, fsr_x2, download_image, download_attachment, archive_file
 from time import perf_counter
+from constants import DISCORD_TOKEN
 
 
-bot = interactions.Client(token="NzcwMTI1NjUxNDk0NTY3OTY2.GuIteZ.pQ_dx7qIOQFpJHF72D630Pvbcor37tBTbGe3LI")
+bot = interactions.Client(token=DISCORD_TOKEN)
 the_id_of_your_guild = 742561462953967697
 
 #  ---------------------------------------------------------------------------------------------------------------------
