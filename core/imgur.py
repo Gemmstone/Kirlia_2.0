@@ -77,7 +77,3 @@ def archive_file(file, user):
     folder = f'./Archive/{user}'
     makedirs(folder, exist_ok=False)
     move(file, f"{folder}/{file}")
-
-
-if __name__ == "__main__":
-    fsr_x2("ciudad-contaminacion-e1565899923422.jpg", replace=False)
