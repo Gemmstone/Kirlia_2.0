@@ -2,3 +2,6 @@
 old_kirlia.py
 constants.py
 /venv/
+*.png
+*.jpg
+*.jpeg
