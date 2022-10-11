@@ -6,7 +6,10 @@ from os import remove, path, makedirs
 from shutil import move
 import cv2
 from cv2 import dnn_superres
-from constants import IMGUR_TOKEN, DEEPAI_KEY
+from constants import IMGUR_TOKEN, DEEP_AI_KEY
+
+import numpy as np
+from PIL import Image
 
 
 client_id = IMGUR_TOKEN["client_id"]
@@ -46,7 +49,7 @@ def image_resize(files, online=False):
                 files={
                     'image': open(file, 'rb'),
                 },
-                headers={'api-key': DEEPAI_KEY}
+                headers={'api-key': DEEP_AI_KEY}
             )
             url = r.json()
             if "output_url" in url:
@@ -65,7 +68,7 @@ def image_upload(file):
     try:
         client = ImgurClient(client_id, client_secret)
         response = client.upload_from_path(file)
-    except (ImgurClientRateLimitError, ImgurClientError, requests.exceptions.SSLError) as err:
+    except (ImgurClientRateLimitError, ImgurClientError, requests.exceptions.SSLError, requests.exceptions.ConnectTimeout) as err:
         response = {"link": None}
     return response['link']
 
@@ -74,7 +77,43 @@ def delete_file(file):
     remove(file)
 
 
+def archive_file_dalle(file, messageid, number):
+    folder = f'./ArchiveDalle/{messageid}'
+    makedirs(folder, exist_ok=True)
+    move(file, f"{folder}/{number}.jpg")
+
+
 def archive_file(file, user):
     folder = f'./Archive/{user}'
-    makedirs(folder, exist_ok=False)
+    makedirs(folder, exist_ok=True)
     move(file, f"{folder}/{file}")
+
+
+def combine_pictures(list_im: list, orientation: bool = 1, filename: str = "combined_pictures.jpg", delete_files=False):
+    imgs = [Image.open(i) for i in list_im]
+    min_shape = sorted([(np.sum(i.size), i.size) for i in imgs])[0][1]
+    imgs_comb = np.hstack((np.asarray(i.resize(min_shape)) for i in imgs))
+
+    if orientation:  # Horizontal orientation
+        imgs_comb = Image.fromarray(imgs_comb)
+        imgs_comb.save(filename)
+    else:  # Vertical orientation
+        imgs_comb = np.vstack((np.asarray(i.resize(min_shape)) for i in imgs))
+        imgs_comb = Image.fromarray(imgs_comb)
+        imgs_comb.save(filename)
+    for img in imgs:
+        img.close()
+    if delete_files:
+        for file in list_im:
+            delete_file(file)
+    return filename
+
+
+def chunkIt(files: list, num: int = 3):
+    avg = len(files) / float(num)
+    out = []
+    last = 0.0
+    while last < len(files):
+        out.append(files[int(last):int(last + avg)])
+        last += avg
+    return list(out)

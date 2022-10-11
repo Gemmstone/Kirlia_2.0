@@ -1,0 +1,14 @@
+requests~=2.28.1
+opencv-python~=4.6.0.66
+numpy~=1.23.3
+imgurpython~=1.1.7
+Pillow~=9.2.0
+wikipedia~=1.4.0
+discord~=2.0.0
+psycopg2~=2.9.3
+httplib2~=0.20.4
+matplotlib~=3.6.0
+dateutils~=0.6.12
+apiclient~=1.0.4
+google-api-python-client~=2.62.0
+oauth2client~=4.1.3

@@ -1,6 +1,7 @@
 import requests
 import base64
 from os.path import exists
+from subprocess import Popen, PIPE
 
 def image(prompt):
     url = "https://backend.craiyon.com/generate"
@@ -37,3 +38,7 @@ def ai_image(prompt):
     # except BaseException as err:
     #     print(err)
     #     return []
+
+
+def stability_ai_image(query, width = 512, height = 512):
+    return Popen(["python3", '-m stability_sdk.client', f'-W {width}', f'-H {height}', f'"{query}"'], stdout=PIPE)
