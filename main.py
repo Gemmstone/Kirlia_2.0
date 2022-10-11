@@ -1,10 +1,9 @@
 import interactions
-from constants import DEEP_AI_KEY, OPEN_AI_KEY
+from environment_variables import DEEP_AI_KEY, OPEN_AI_KEY, DISCORD_TOKEN, OPEN_WEATHER_KEY, SCOPE
 from core.ai_image_generator import ai_image, stability_ai_image
 from core.imgur import image_upload, delete_file, image_resize, fsr_x2, download_image, \
     download_attachment, archive_file, combine_pictures, chunkIt, archive_file_dalle
 from time import perf_counter
-from constants import DISCORD_TOKEN, OPEN_WEATHER_KEY, SCOPE
 import wikipedia
 import urllib
 import traceback

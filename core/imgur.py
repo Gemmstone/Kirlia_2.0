@@ -6,7 +6,7 @@ from os import remove, path, makedirs
 from shutil import move
 import cv2
 from cv2 import dnn_superres
-from constants import IMGUR_TOKEN, DEEP_AI_KEY
+from environment_variables import IMGUR_TOKEN, DEEP_AI_KEY
 
 import numpy as np
 from PIL import Image
