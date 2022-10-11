@@ -559,4 +559,16 @@ async def clima(ctx: interactions.CommandContext, ciudad: str):
         await message.edit(f'Ha ocurrido un problema (_{response["cod"]}_) buscando la ciudad **{ciudad}**')
 
 
+# ======================================================================================================================
+#                                                AUTOMATIC FUNCTIONS
+# ======================================================================================================================
+
+@bot.event
+async def on_ready():
+    # print('\nLogged in as %s [%s]\n' % (bot.user.name, bot.user.id))
+    bot.change_presence("Usa / para llamarme")
+    # channel = bot.get_channel(1026350299738288203)
+    # await channel.send("¡Estoy en línea!")
+
+
 bot.start()
